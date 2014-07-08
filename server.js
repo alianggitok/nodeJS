@@ -1,17 +1,21 @@
-var http = require('http');
+var http = require('http'),
+	url = require('url');
+var server,pathname;
 
-function start() { 
+function start(route, handle) { 
 	function onRequest(request, response) {
-		console.log('Request received.');
+		console.log('Request for '+request.url+' received.');
+
+		pathname = url.parse(request.url).pathname;
+		route(handle, pathname);
+
 		response.writeHead(200, { 'Content-Type': 'text/html' });
 		response.write('Hello, world!');
 		response.end();
 	};
 
-	var server=http.createServer(onRequest);
-
+	server=http.createServer(onRequest);
 	server.listen(process.env.PORT || 8080);
-
 	console.log('Server has started.');
 };
 
