@@ -2,7 +2,7 @@ var http = require('http'),
 	url = require('url');
 var server,pathname;
 
-function start(route, handle) { 
+function start(route, handle) {
 	function onRequest(request, response) {
 		console.log('Request for '+request.url+' received.');
 
