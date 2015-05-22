@@ -3,9 +3,10 @@ var ex=require('./exports');
 
 ex.info.info('aaa');
 ex.info.title('title');
-ex.info.parent();
-console.log(exArray[1]);
 
+ex.info.parent();
+
+console.log(exArray[1]);
 
 console.log(ex);
 

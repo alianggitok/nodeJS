@@ -3,6 +3,6 @@ module.exports=[
 	'Ozzy Osbourne',
 	'Ronnie James Dio',
 	'Steven Tyler',
-	'Mick Jagger'
+	'Mick Jagger
 ];
 
