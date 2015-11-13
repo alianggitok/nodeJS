@@ -1,0 +1,7 @@
+
+1. npm init
+//生成package.json
+
+2. npm install express utility --save
+//--save会把依赖加入package.json
+
