@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Mocha</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="mocha.css" />
+</head>
+
+<body>
+	<div id="mocha"></div>
+	
+	<script src="mine.js"></script><!--引入自己的js-->
+
+
+	<script src="mocha.js"></script><!--引入mocha库-->
+	<script>
+		mocha.setup('bdd');//设置测试模式为DBB
+	</script>
+	<script src="lib/chai.js"></script><!--引入断言库chai-->
+
+	
+	<script src="test.js"></script><!--引入测试用例-->
+	<script>
+		mocha.run(); //运行测试，结果会显示在页面上
+	</script>
+</body>
+
+</html>
