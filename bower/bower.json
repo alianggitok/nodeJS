@@ -1,0 +1,22 @@
+{
+  "name": "bower",
+  "homepage": "https://github.com/alianggitok/nodeJS",
+  "authors": [
+    "Warren Chen <alianggmok@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "moduleType": [],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "js/lib",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~1.7.2"
+  }
+}

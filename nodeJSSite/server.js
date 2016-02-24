@@ -5,10 +5,10 @@ var http = require('http'),
 
 function start(route, handle) {
 	function onRequest(request, response) {
-		console.log('Request for '+request.url+' received.');
+		console.log('--> Request for '+request.url+' received.');
 
 		pathname = url.parse(request.url).pathname;
-		route(handle, pathname,response);
+		route(handle, pathname, response);
 	};
 
 	server=http.createServer(onRequest);
