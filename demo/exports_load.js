@@ -9,4 +9,3 @@ ex.info.parent();
 console.log(exArray[1]);
 
 console.log(ex);
-

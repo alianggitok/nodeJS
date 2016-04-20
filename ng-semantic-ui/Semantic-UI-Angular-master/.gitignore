@@ -1,0 +1,12 @@
+.idea
+*.html.js
+.DS_Store
+.grunt
+/node_modules
+/dist
+*-SNAPSHOT*
+typings
+npm-debug.log
+.vscode
+src/**/*.js
+src/**/*.map

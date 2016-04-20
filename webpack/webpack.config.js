@@ -6,6 +6,9 @@ var webpack=require('webpack'),
 		makeCommons:function(opts){
 			return new webpack.optimize.CommonsChunkPlugin(opts);
 		},
+		minimize:function(opts){
+			return new webpack.optimize.UglifyJsPlugin(opts);
+		},
 		extractCss:function(opts){
 			return new ExtractTextPlugin(opts);
 		},
@@ -16,6 +19,10 @@ var webpack=require('webpack'),
 
 module.exports={
 //	context:'./src',
+	externals:{//不打包
+		'jquery':'$',
+		'angular':'ng'
+	},
 	entry:{
 		index:'./src/entry/index.js',
 		page1:'./src/entry/page1.js'
@@ -24,7 +31,7 @@ module.exports={
 		path:'./public/',//打包输出路径
 		publicPath:'/public/',
 			//publicPath，发布文件中引用资源的地址，
-			//css等文件内的url指向会随之变化，可以是绝对路径，甚至是CDN地址
+			//css等文件内的url指向会随之变化，常用来配置CDN
 		filename:'js/[name].js',//[name]对应entry的键名
 		chunkFilename:'js/[name].[id].chunk.js'
 	},
@@ -44,14 +51,15 @@ module.exports={
 		}
 	},
 	plugins:[
-		//生成common.js自动整理出共用代码
-		plugins.makeCommons({
+//		plugins.minimize(),//压缩/格式化代码，包括css
+		plugins.makeCommons({//生成common.js自动整理出共用代码
 			name:'common',
 			miniChunks:2//一个模块至少被调用两次才会打包到common
 		}),
 		//提取文本文件的插件，用来提取css不打包而直接输出到output，
 		//引入plugin同时需要在loader中设置，最后以<link>的形式嵌入html
 		plugins.extractCss('style/[name].css'),//配置输出路径及文件名
+		//生成多个html文件
 		plugins.makeHtml({
 			favicon:'favicon.ico',
 			hash:true,//给资源路径自动添加hash后缀

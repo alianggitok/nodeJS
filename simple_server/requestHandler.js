@@ -18,6 +18,7 @@ function start(response) {
 	response.write(body);
 	response.end();
 }
+
 function upload(response) {
 	console.log('Request handler "upload" was called.');
 	response.writeHead(200, {"Content-Type": "text/html"});

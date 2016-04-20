@@ -10,4 +10,4 @@ function route(handle, pathname,response) {
 	}
 }
 
-exports.route = route;
+exports.router = route;
