@@ -3,7 +3,7 @@ var bodyParser = require('body-parser');
 var path=require('path');
 var _=require('underscore');
 var mongoose=require('mongoose');
-var movieM=require('./views/models/movie.js')
+var movieM=require('./views/models/movie.js');
 var port=process.env.PORT||3000;
 var app=express();
 
@@ -23,15 +23,15 @@ console.log('imooc started on port '+port);
 app.get('/',function(request,response){
 	movieM.fetch(function(err,movies){
 		if (err) {
-			console.log(err)
+			console.log(err);
 		}
 		response.render('index',{
 			layout:false,
 			title:'imooc index page',
 			movies:movies
-		})
-	})
-})
+		});
+	});
+});
 
 //detail
 app.get('/movie/:id',function(request,response){
@@ -40,9 +40,9 @@ app.get('/movie/:id',function(request,response){
 		response.render('detail',{
 			title:'imooc detail page',
 			movie:movie
-		})
-	})
-})
+		});
+	});
+});
 
 //admin
 app.get('/admin/movie',function(request,response){
@@ -58,12 +58,12 @@ app.get('/admin/movie',function(request,response){
 			flash:'',
 			summary:''
 		}
-	})
-})
+	});
+});
 
 //update movie
 app.post('admin/update/:id',function(request,response){
-	var id=request.params.id
+	var id=request.params.id;
 	if (id) {
 		movieM.findById(id,function(err,movie){
 			response.render('admin',{
@@ -78,30 +78,30 @@ app.post('admin/update/:id',function(request,response){
 					flash:'',
 					summary:''
 				}
-			})
-		})
+			});
+		});
 	}
-})
+});
 
 
 //post movie
 app.post('admin/movie/new',function(request,response){
-	var id=request.body.movie._id;
-	var movieObj=request.body.movie;
-	var _movie
+	var id=request.body.movie._id,
+		movieObj=request.body.movie,
+		_movie;
 	if (id!=='undefinded') {
 		movieM.findById(id,function(err,movie){
 			if (err) {
-				console.log(err)
+				console.log(err);
 			}
-			_movie=_.extend(movie,movieObj)
+			_movie=_.extend(movie,movieObj);
 			_movie.save(function(err,movie){
 				if (err) {
-					console.log(err)
+					console.log(err);
 				}
-				respose.redirect('/movie/'+movie._id)
-			})
-		})
+				response.redirect('/movie/'+movie._id);
+			});
+		});
 	}else{
 		_movie=new movieM({
 			doctor:movieObj.doctor,
@@ -112,25 +112,25 @@ app.post('admin/movie/new',function(request,response){
 			poster:movieObj.poster,
 			summary:movieObj.summary,
 			flash:movieObj.flash
-		})
+		});
 		_movie.save(function(err,movie){
 			if (err) {
-				console.log(err)
+				console.log(err);
 			}
-			response.redirect('/movie/'+movie._id)
-		})
+			response.redirect('/movie/'+movie._id);
+		});
 	}
-})
+});
 
 //list
 app.get('/admin/list',function(request,response){
 	movieM.fetch(function(err,movies){
 		if (err) {
-			console.log(err)
+			console.log(err);
 		}
 		response.render('list',{
 			title:'imooc list page',
 			movies:movies
-		})
-	})
-})
+		});
+	});
+});

@@ -1,5 +1,5 @@
 function start(response) {
-	console.log("Request handler 'start' was called.");
+	console.log('Request handler "start" was called.');
 
 	var body = '<html>'+
 		'<head>'+
@@ -14,14 +14,14 @@ function start(response) {
 		'</body>'+
 		'</html>';
 
-	response.writeHead(200, {"Content-Type": "text/html"});
+	response.writeHead(200, {'Content-Type': 'text/html'});
 	response.write(body);
 	response.end();
 }
 
 function upload(response) {
 	console.log('Request handler "upload" was called.');
-	response.writeHead(200, {"Content-Type": "text/html"});
+	response.writeHead(200, {'Content-Type': 'text/html'});
 	response.write('hello upload.');
 	response.end();
 }
