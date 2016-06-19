@@ -202,7 +202,7 @@ function handle(req,res,mime){
 						res.writeHead(500,{
 							'Content-Type':'text/plain'
 						});
-						res.write(err);
+						res.write(String(err));
 						res.end();
 					}else{
 						res.writeHead(200,{
