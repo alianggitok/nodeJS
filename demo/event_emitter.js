@@ -10,16 +10,17 @@ var emitEvent=function(foo,bar){
 
 //regist events listener
 emitter.on('some_events',emitEvent);
+emitter.on('some_events',emitEvent);
 emitter.on('some_events1',emitEvent);
 emitter.on('some_events2',emitEvent);
 emitter.on('some_events3',emitEvent);
 
 //listener length
-function emitterListenersLen(){
-	var len=eventEmitter.listenerCount(emitter,'some_events');//模块中以供注册了多少事件侦听
+function emitterListenersCount(){
+	var len=eventEmitter.listenerCount(emitter,'some_events');//事件被侦听的次数
 	console.log('listeners: '+len+'\n');
 }
-emitterListenersLen();
+emitterListenersCount();
 
 //remove listener
 emitter.removeListener('some_events2',emitEvent);
@@ -36,4 +37,4 @@ console.log(isSuccess);//false
 
 emitter.removeAllListeners();//移除所有
 
-emitterListenersLen();
+emitterListenersCount();

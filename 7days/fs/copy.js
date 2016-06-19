@@ -6,7 +6,12 @@ function copy(src,dst){
 }
 
 function main(argv){
-	copy(argv[0],argv[1]);
+	try{
+		copy(argv[0],argv[1]);
+	}catch(err){
+		console.log(err);
+		process.exit(1);//退出进程并设置状态码为1
+	}
 }
 
 main(process.argv.slice(2));//通过process获取命令行中输入的参数

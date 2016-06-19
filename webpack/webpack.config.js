@@ -30,8 +30,8 @@ module.exports={
 	output:{
 		path:'./public/',//打包输出路径
 		publicPath:'/public/',
-			//publicPath，发布文件中引用资源的地址，
-			//css等文件内的url指向会随之变化，常用来配置CDN
+			//publicPath，发布文件中引用资源的头路径，这里用了个绝对路径“/”打头的
+			//css等文件内的url指向会随之变化，可用来配置CDN
 		filename:'js/[name].js',//[name]对应entry的键名
 		chunkFilename:'js/[name].[id].chunk.js'
 	},
