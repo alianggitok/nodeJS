@@ -5,33 +5,55 @@ var cp=require('child_process'),
 	path=require('path');
 
 function handle(req,res,mime){
+	function loadHTML(file){
+
+		console.log('load html:',file);
+
+		fs.exists(file,function(exist){
+			if(exist){
+				var resStream=fs.createReadStream(file),
+					data,
+					html;
+				res.writeHead(200,{
+					'Content-Type':mime.types.html
+				});
+				// resStream.on('readable',function(){
+				// 	data=resStream.read();
+				// 	if(data){
+				// 		res.write(data.toString('utf8'));
+				// 	}
+				// });
+				resStream.on('error',function(err){
+					res.writeHead(500,{
+						'Content-Type':mime.types.json
+					});
+					console.log(err);
+					res.end(JSON.stringify({
+						error:'error!',
+						message:err
+					}));
+				});
+				resStream.pipe(res);
+				// resStream.on('end',function(){
+				// 	res.end();
+				// });
+			}else{
+				res.writeHead(404,{
+					'Content-Type':mime.types.json
+				});
+				console.log('file not find');
+				res.end(JSON.stringify({
+					error:'error!',
+					message:'file not find'
+				}));
+			}
+		});
+
+	}
 	
 	return {
 		index:function(){
-			var html=''+
-				'<!DOCTYPE html>'+
-				'<html>'+
-				'<head>'+
-					'<title>Untitled Document</title>'+
-					'<meta charset="UTF-8">'+
-					'<meta name="description" content="" />'+
-					'<meta name="keywords" content="" />'+
-				'</head>'+
-				'<body>'+
-					'<h3>welcome</h3>'+
-					'<a href="/start">start</a><br>'+
-					'<a href="/sleep">sleep</a><br>'+
-					'<a href="/dir">dir</a><br>'+
-					'<a href="/form">form</a><br>'+
-					'<a href="/upload">upload</a><br>'+
-					'<a href="/404">404</a>'+
-				'</body>'+
-				'</html>';
-			res.writeHead(200,{
-				'Content-Type':'text/html'
-			});
-			res.write(html);
-			res.end();
+			loadHTML('./view/index.html');
 		},
 		start:function(){
 			res.writeHead(200,{
@@ -48,7 +70,7 @@ function handle(req,res,mime){
 			(function sleep(ms){
 				var start=new Date().getTime();
 				while(new Date().getTime()<(start+ms)){}
-			}(10000));//“睡”10秒，这会阻塞整个进程
+			}(5000));//“睡”5秒，这会阻塞整个进程
 			console.log('sleep end');
 			res.write('done!');
 			res.end();
@@ -64,76 +86,24 @@ function handle(req,res,mime){
 			});
 		},
 		form:function(){
-			var html=''+
-				'<!DOCTYPE html>'+
-				'<html>'+
-				'<head>'+
-					'<title>Untitled Document</title>'+
-					'<meta charset="UTF-8">'+
-					'<meta name="description" content="" />'+
-					'<meta name="keywords" content="" />'+
-				'</head>'+
-				'<body>'+
-					'<form action="/submitResult" method="post">'+
-						'<textarea name="text" rows="20" cols="60"></textarea><br/>'+
-						'<input type="submit" value="Submit"/>'+
-					'</form>'+
-				'</body>'+
-				'</html>';
-			
-			res.writeHead(200,{
-				'Content-Type':'text/html'
-			});
-			res.write(html);
-			res.end();
+			loadHTML('./view/form.html');
 		},
-		submitResult:function(){
+		formResult:function(){
 			var form=new formidable.IncomingForm(),
 				html='';
 			form.parse(req,function(err,fields,files){
-				html=''+
-					'<!DOCTYPE html>'+
-					'<html>'+
-					'<head>'+
-						'<title>Untitled Document</title>'+
-						'<meta charset="UTF-8">'+
-						'<meta name="description" content="" />'+
-						'<meta name="keywords" content="" />'+
-					'</head>'+
-					'<body>'+
-						'<p>text: '+fields.text+'</p>'+
-					'</body>'+
-					'</html>';
+				json={
+					text:fields.text
+				};
 				res.writeHead(200,{
-					'Content-Type':'text/html'
+					'Content-Type':mime.types.json
 				});
-				res.write(html);
+				res.write(JSON.stringify(json));
 				res.end();
 			});
 		},
 		upload:function(){
-			var html=''+
-				'<!DOCTYPE html>'+
-				'<html>'+
-				'<head>'+
-					'<title>Untitled Document</title>'+
-					'<meta charset="UTF-8">'+
-					'<meta name="description" content="" />'+
-					'<meta name="keywords" content="" />'+
-				'</head>'+
-				'<body>'+
-					'<form action="/uploadResult" enctype="multipart/form-data" method="post">'+
-						'<input type="file" name="file"><br/>'+
-						'<input type="submit" value="Submit"/>'+
-					'</form>'+
-				'</body>'+
-				'</html>';
-			
-			res.writeHead(200,{
-				'Content-Type':'text/html'
-			});
-			res.write(html);
-			res.end();
+			loadHTML('./view/upload.html');
 		},
 		uploadResult:function(){
 			var form=new formidable.IncomingForm(),
@@ -141,7 +111,9 @@ function handle(req,res,mime){
 				holderHTML='',
 				dir='./upload/';
 			
-			form.encoding = 'utf-8';
+            console.log(req.files);
+            
+			form.encoding='utf-8';
 			form.uploadDir=dir;
 			form.parse(req,function(err,fields,files){
 				var ext=path.extname(files.file.name),

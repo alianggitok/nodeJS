@@ -10,42 +10,32 @@ function route(req,res,mime){
 				(requestTimes+=1)+
 				' ※※※※※※※※※※※※※※※※※※※※');
 	console.log('request url: '+req.url);
-	console.log('route path to: '+pathname);
+	console.log('route to: '+pathname);
 
 	function routeHandler(req){
 		var responseHandle=responser.handle(req,res,mime);
-		switch(pathname){
-			case '/':
-				responseHandle.index();
-				break;
-			case '/start':
-				responseHandle.start();
-				break;
-			case '/sleep':
-				responseHandle.sleep();
-				break;
-			case '/dir':
-				responseHandle.dir();
-				break;
-			case '/form':
-				responseHandle.form();
-				break;
-			case '/submitResult':
-				responseHandle.submitResult();
-				break;
-			case '/upload':
-				responseHandle.upload();
-				break;
-			case '/uploadResult':
-				responseHandle.uploadResult();
-				break;
-			default:
-				responseHandle.others();
+
+		if(pathname==='/'){
+			responseHandle.index();
+		}else if(pathname==='/start'){
+			responseHandle.start();
+		}else if(pathname==='/sleep'){
+			responseHandle.sleep();
+		}else if(pathname==='/dir'){
+			responseHandle.dir();
+		}else if(pathname==='/form'){
+			responseHandle.form();
+		}else if(pathname==='/formResult'){
+			responseHandle.formResult();
+		}else if(pathname==='/upload'){
+			responseHandle.upload();
+		}else if(pathname==='/uploadResult'){
+			responseHandle.uploadResult();
 		}
+
 	}
 	
 	requester.handle(req,routeHandler);
-	
 	
 }
 

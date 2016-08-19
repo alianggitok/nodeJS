@@ -1,49 +1,27 @@
-/bin/
-	批处理
+【chrome】:
+https://confluence.usky.com.cn:8443/pages/viewpage.action?pageId=24412516
+https://exmail.qq.com/cgi-bin/frame_html?sid=0pIa-quuBp8Y1U4Z,7&r=6cd80cf73b4ebc33c5f7eaffcf65550d
+http://devsg.ceair.com:91/pssui/ceairportal/views/#/refund/detail
+http://angular-ui.github.io/
+http://angular-ui.github.io/bootstrap/versioned-docs/0.12.1/
+http://v3.bootcss.com/javascript/#modals
+https://github.com/glenjamin/webpack-hot-middleware
+https://github.com/glenjamin/webpack-hot-middleware/tree/master/example
 
-/config/
-	yaml格式的配置文件
-
-/node/
-	node
-
-/plugins/
-	kibana官方建议不要在这里自己写plugins，因为这里目前还没有稳定下来
-
-/src/bin/
-	kibana.js 基于 node 的 server 脚本
-	为什么windows版的也有 .sh文件？
-
-/src/config/
-	index.js 模块配置信息
-	kibana.yml 默认配置信息
-	
-/src/lib/
-	库加载、配置
-
-/src/node_modules/
-	node npm 管理的第三方模块
-
-/src/public/bower_components/
-	bower管理的组件（字体，插件）
-
-/src/public/components/
-	页面组件（表格、分页、模块、模板）
-
-/src/public/directives/
-	基于angularjs的指令
-
-/src/public/images/
-	页面中引用的图片（logo、loading）
-	
-/src/public/partials/
-	页面部件
-
-/src/public/plugins/ <--***************************************
-	页面模块
-
-
-requirejs，做资源异步加载及各资源间的依赖，AMD
-angularjs，数据绑定，mvc
-
-
+【遨游】
+https://zhuanlan.zhihu.com/p/19739833
+http://www.w3ctech.com/topic/77
+http://www.html5jq.com/fe/angular_node/20150417/133.html
+https://zhuanlan.zhihu.com/p/19569085
+https://segmentfault.com/a/1190000003915443
+https://coding.net/
+https://medium.com/@dickeyxxx/best-practices-for-building-angular-js-apps-266c1a4a6917#.9gkclbi6u
+http://www.radio.cn/option/com_content/ItemId/987/987.html
+https://github.com/ouvens/frontend-system-map
+http://www.cnblogs.com/xuezhi/p/4897831.html
+https://medium.com/@dickeyxxx/best-practices-for-building-angular-js-apps-266c1a4a6917#.tavzowjii
+http://kibana.logstash.es/content/kibana/difference.html
+http://gank.io/post/564151c1f1df1210001c9161
+http://angular-tips.com/blog/2015/06/using-angular-1-dot-x-with-es6-and-webpack/
+http://docs.ngnice.com/guide/$location
+http://lishaopeng.com/2016/02/05/js-module/
