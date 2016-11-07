@@ -1,3 +1,7 @@
+/** mime types
+ * @module
+ */
+
 var types={
 	//text
 	"html": "text/html",
@@ -24,4 +28,5 @@ var types={
 	
 };
 
-exports.types = types;
+/** exports mime types */
+module.exports.types = types;

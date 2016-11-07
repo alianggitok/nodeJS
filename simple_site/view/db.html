@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	
+<head>
+	<title>Untitled Document</title>
+	<meta charset="UTF-8">
+	<meta name="description" content="" />
+	<meta name="keywords" content="" />
+</head>
+
+<body>
+	<div>
+		<button onclick="insert()">insert</button>
+		<button onclick="find()">find</button>
+		<button>sort</button>
+	</div>
+	<table>
+		<thead>
+			<tr>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td></td>
+			</tr>
+		</tbody>
+	</table>
+
+	<script>
+		function find(){
+			var queries=JSON.stringify({
+				b:{$lt:4}
+			});
+			window.location.href='/db/find?q='+queries;
+		}
+		function insert(){
+			var random=Math.random()*10,
+				doc=JSON.stringify({
+					random:random
+				});
+			window.location.href='/db/insert?doc='+doc;
+		}
+	</script>
+</body>
+
+</html>
