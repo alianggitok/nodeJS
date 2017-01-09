@@ -1,7 +1,9 @@
 var webpack=require('webpack'),
+	requestSync=require('sync-request'),
 	path=require('path'),
 	ExtractTextPlugin=require('extract-text-webpack-plugin'),
 	HtmlWebpackPlugin=require('html-webpack-plugin'),
+	HtmlResWebpackPlugin=require('html-res-webpack-plugin'),
 	plugins={//插件
 		makeCommons:function(opts){
 			return new webpack.optimize.CommonsChunkPlugin(opts);
@@ -14,8 +16,15 @@ var webpack=require('webpack'),
 		},
 		makeHtml:function(opts){
 			return new HtmlWebpackPlugin(opts);
+		},
+		makeResHtml:function(opts){
+			return new HtmlResWebpackPlugin(opts);
 		}
 	};
+// var html=requestSync('POST','http://devstage-us.ceair.com/system/include/ceairheader.html').getBody('utf-8');
+
+
+// console.log(html)
 
 module.exports={
 //	context:'./src',
@@ -32,8 +41,8 @@ module.exports={
 		publicPath:'/public/',
 			//publicPath，发布文件中引用资源的头路径，这里用了个绝对路径“/”打头的
 			//css等文件内的url指向会随之变化，可用来配置CDN
-		filename:'js/[name].js',//[name]对应entry的键名
-		chunkFilename:'js/[name].[id].chunk.js'
+		filename:'js/[name].js?[hash:8]',//[name]对应entry的键名
+		chunkFilename:'js/[name].[id].chunk.js?[hash:8]'
 	},
 	module:{
 		loaders:[
@@ -71,13 +80,22 @@ module.exports={
 				//对应相反作用的参数为excludeChunks（排除某个chunk），
 				//控制chunk顺序的chunksSortMode参数
 		}),
-		plugins.makeHtml({
+		// plugins.makeHtml({
+		// 	favicon:'favicon.ico',
+		// 	hash:true,
+		// 	inject:'body',
+		// 	template:'src/tmpl/page1.html',
+		// 	filename:'page1.html',
+		// 	chunks:['common','page1']
+		// }),
+		plugins.makeResHtml({
 			favicon:'favicon.ico',
-			hash:true,
-			inject:'body',
-			template:'src/tmpl/page1.html',
 			filename:'page1.html',
-			chunks:['common','page1']
+			template:'src/tmpl/page1.html',
+			templateContent:function(tpl){
+				console.log('HtmlResWebpackPlugin:',tpl);
+				return tpl;
+			}
 		})
 	],
 	devServer: {//webpack-dev-server配置
